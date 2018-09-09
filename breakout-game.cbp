@@ -12,6 +12,7 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-std=c++14" />
 					<Add option="-g" />
 				</Compiler>
 			</Target>
@@ -22,6 +23,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add option="-std=c++14" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -30,7 +32,28 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add option="-std=c++14" />
 		</Compiler>
+		<Linker>
+			<Add library="GL" />
+			<Add library="X11" />
+			<Add library="GLEW" />
+			<Add library="glfw" />
+			<Add library="Xi" />
+			<Add library="Xrandr" />
+			<Add library="pthread" />
+			<Add library="SOIL" />
+			<Add library="dl" />
+		</Linker>
+		<Unit filename="src/game.cpp" />
+		<Unit filename="src/game.hpp" />
+		<Unit filename="src/main.cpp" />
+		<Unit filename="src/resource_manager.cpp" />
+		<Unit filename="src/resource_manager.hpp" />
+		<Unit filename="src/shader.cpp" />
+		<Unit filename="src/shader.hpp" />
+		<Unit filename="src/texture.cpp" />
+		<Unit filename="src/texture.hpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />
