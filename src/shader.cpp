@@ -8,26 +8,26 @@ Shader &Shader::Use()
   return *this;
 }
 
-void Shader::Compile(const GLchar *vertexSource, const GLchar *fragmentSource, const GLchar *geometrySource = nullptr)
+void Shader::Compile(const GLchar *vertexSource, const GLchar *fragmentSource, const GLchar *geometrySource)
 {
   GLuint sVertex, sFragment, gShader;
 
   sVertex = glCreateShader(GL_VERTEX_SHADER);
   glShaderSource(sVertex, 1, &vertexSource, NULL);
   glCompileShader(sVertex);
-  checkCompileErrors(sVertex, "VERTEX");
+  CheckCompileErrors(sVertex, "VERTEX");
 
   sFragment = glCreateShader(GL_FRAGMENT_SHADER);
   glShaderSource(sFragment, 1, &fragmentSource, NULL);
   glCompileShader(sFragment);
-  checkCompileErrors(sFragment, "FRAGMENT");
+  CheckCompileErrors(sFragment, "FRAGMENT");
 
   if (geometrySource != nullptr)
   {
     gShader = glCreateShader(GL_GEOMETRY_SHADER);
     glShaderSource(gShader, 1, &geometrySource, NULL);
     glCompileShader(gShader);
-    checkCompileErrors(gShader, "GEOMETRY");
+    CheckCompileErrors(gShader, "GEOMETRY");
   }
 
   this->ID = glCreateProgram();
@@ -36,7 +36,7 @@ void Shader::Compile(const GLchar *vertexSource, const GLchar *fragmentSource, c
   if (geometrySource != nullptr)
     glAttachShader(this->ID, sFragment);
   glLinkProgram(this->ID);
-  checkCompileErrors(this->ID, "PROGRAM");
+  CheckCompileErrors(this->ID, "PROGRAM");
 
   glDeleteShader(sVertex);
   glDeleteShader(sFragment);
@@ -62,7 +62,7 @@ void Shader::SetVector2f(const GLchar *name, GLfloat x, GLfloat y, GLboolean use
 {
   if (useShader)
     this->Use();
-  glUniform2f(glGetUniformLocation(this->ID, name), value);
+  glUniform2f(glGetUniformLocation(this->ID, name), x, y);
 }
 
 void Shader::SetVector2f(const GLchar *name, const glm::vec2 &value, GLboolean useShader)
@@ -100,7 +100,7 @@ void Shader::SetVector4f(const GLchar *name, const glm::vec4 &value, GLboolean u
   glUniform4f(glGetUniformLocation(this->ID, name), value.x, value.y, value.z, value.w);
 }
 
-void Shader::SetMatrix4(const GLchar *name, const glm::mat4 &matrix, GLboolean useShader)
+void Shader::SetMatrix4f(const GLchar *name, const glm::mat4 &matrix, GLboolean useShader)
 {
   if (useShader)
     this->Use();
@@ -113,7 +113,7 @@ void Shader::CheckCompileErrors(GLuint object, std::string type)
   GLchar infoLog[1024];
   if (type != "PROGRAM")
   {
-    glGetShaderiv(object, 1024, NULL, infoLog);
+    glGetShaderiv(object, GL_LINK_STATUS, &success);
     if (!success)
     {
       glGetShaderInfoLog(object, 1024, NULL, infoLog);

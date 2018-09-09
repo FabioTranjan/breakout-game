@@ -4,12 +4,14 @@
 #include <sstream>
 #include <fstream>
 
-#include <SOIL.h>
+#include <SOIL/SOIL.h>
 
 std::map<std::string, Texture2D> ResourceManager::Textures;
 std::map<std::string, Shader>    ResourceManager::Shaders;
 
-Shader ResourceManager::LoadShader(const Glchar *vShaderFile, const GLchar *fShaderFile, const GLchar *gShaderFile, std::string name)
+ResourceManager::ResourceManager() {}
+
+Shader ResourceManager::LoadShader(const GLchar *vShaderFile, const GLchar *fShaderFile, const GLchar *gShaderFile, std::string name)
 {
   Shaders[name] = loadShaderFromFile(vShaderFile, fShaderFile, gShaderFile);
   return Shaders[name];

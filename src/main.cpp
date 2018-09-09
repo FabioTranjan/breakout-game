@@ -1,8 +1,7 @@
-#define GLEW_STATIC
 #include <GL/glew.h>
-#include <GLFW/GLFW/glfw3.h>
+#include <GLFW/glfw3.h>
 
-#include "game.h"
+#include "game.hpp"
 #include "resource_manager.hpp"
 
 void key_callback(GLFWwindow *window, int key, int scancode, int action, int mode);
@@ -46,7 +45,8 @@ int main(int argc, char *argv[])
     GLfloat currentFrame = glfwGetTime();
     deltaTime = currentFrame - lastFrame;
     lastFrame = currentFrame;
-    glfwPollEvent();
+
+    glfwPollEvents();
 
     Breakout.ProcessInput(deltaTime);
 

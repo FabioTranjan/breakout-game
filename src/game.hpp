@@ -5,9 +5,9 @@
 #include <GLFW/glfw3.h>
 
 enum GameState {
-  GAME_ACTIVE;
-  GAME_MENU;
-  GAME_WIN;
+  GAME_ACTIVE,
+  GAME_MENU,
+  GAME_WIN
 };
 
 class Game {

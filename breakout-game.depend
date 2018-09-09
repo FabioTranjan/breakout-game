@@ -1,0 +1,46 @@
+# depslib dependency file v1.0
+1536442349 source:/home/fabio/Projetos/breakout-game/src/game.cpp
+	"game.hpp"
+	"resource_manager.hpp"
+
+1536458923 /home/fabio/Projetos/breakout-game/src/game.hpp
+	<GL/glew.h>
+	<GLFW/glfw3.h>
+
+1536459219 /home/fabio/Projetos/breakout-game/src/resource_manager.hpp
+	<map>
+	<string>
+	<GL/glew.h>
+	"texture.hpp"
+	"shader.hpp"
+
+1536454847 /home/fabio/Projetos/breakout-game/src/texture.hpp
+	<GL/glew.h>
+
+1536454872 /home/fabio/Projetos/breakout-game/src/shader.hpp
+	<string>
+	<GL/glew.h>
+	<glm/glm.hpp>
+	<glm/gtc/type_ptr.hpp>
+
+1536459693 source:/home/fabio/Projetos/breakout-game/src/main.cpp
+	<GL/glew.h>
+	<GLFW/glfw3.h>
+	"game.hpp"
+	"resource_manager.hpp"
+
+1536459456 source:/home/fabio/Projetos/breakout-game/src/resource_manager.cpp
+	"resource_manager.hpp"
+	<iostream>
+	<sstream>
+	<fstream>
+	<SOIL/SOIL.h>
+
+1536459634 source:/home/fabio/Projetos/breakout-game/src/shader.cpp
+	"shader.hpp"
+	<iostream>
+
+1536459645 source:/home/fabio/Projetos/breakout-game/src/texture.cpp
+	<iostream>
+	"texture.hpp"
+
