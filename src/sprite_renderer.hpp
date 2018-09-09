@@ -1,3 +1,13 @@
+#ifndef SPRITE_RENDERER_H
+#define SPRITE_RENDERER_H
+
+#include <GL/glew.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+
+#include "texture.h"
+#include "shader.h"
+
 class SpriteRenderer
 {
   public:
@@ -14,3 +24,5 @@ class SpriteRenderer
 
     void initRenderData();
 };
+
+#endif
