@@ -1,6 +1,6 @@
-#include "sprite_renderer.h"
+#include "sprite_renderer.hpp"
 
-SpriteRenderer::SpriteRenderer()
+SpriteRenderer::SpriteRenderer(Shader &shader)
 {
   this->shader = shader;
   this->initRenderData();
@@ -49,7 +49,7 @@ void SpriteRenderer::DrawSprite(Texture2D &texture, glm::vec2 position, glm::vec
 
   model = glm::scale(model, glm::vec3(size, 1.0f));
 
-  this->shader.SetMatrix4("model", model);
+  this->shader.SetMatrix4f("model", model);
   this->shader.SetVector3f("spriteColor", color);
 
   glActiveTexture(GL_TEXTURE0);
