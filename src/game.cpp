@@ -1,5 +1,8 @@
 #include "game.hpp"
 #include "resource_manager.hpp"
+#include "sprite_renderer.hpp"
+
+SpriteRenderer *Renderer;
 
 Game::Game(GLuint width, GLuint height) :
     State(GAME_ACTIVE), Keys(), Width(width), Height(height)
