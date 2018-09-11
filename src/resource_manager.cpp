@@ -59,6 +59,9 @@ Shader ResourceManager::loadShaderFromFile(const GLchar *vShaderFile, const GLch
     vertexShaderFile.close();
     fragmentShaderFile.close();
 
+    vertexCode = vShaderStream.str();
+    fragmentCode = fShaderStream.str();
+
     if (gShaderFile != nullptr)
     {
       std::ifstream geometryShaderFile(gShaderFile);

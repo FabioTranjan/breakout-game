@@ -52,6 +52,8 @@
 		<Unit filename="src/resource_manager.hpp" />
 		<Unit filename="src/shader.cpp" />
 		<Unit filename="src/shader.hpp" />
+		<Unit filename="src/sprite_renderer.cpp" />
+		<Unit filename="src/sprite_renderer.hpp" />
 		<Unit filename="src/texture.cpp" />
 		<Unit filename="src/texture.hpp" />
 		<Extensions>
