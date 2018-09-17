@@ -47,6 +47,9 @@
 		</Linker>
 		<Unit filename="src/game.cpp" />
 		<Unit filename="src/game.hpp" />
+		<Unit filename="src/game_level.hpp" />
+		<Unit filename="src/game_object.cpp" />
+		<Unit filename="src/game_object.hpp" />
 		<Unit filename="src/main.cpp" />
 		<Unit filename="src/resource_manager.cpp" />
 		<Unit filename="src/resource_manager.hpp" />

@@ -30,7 +30,7 @@
 	"game.hpp"
 	"resource_manager.hpp"
 
-1536539894 source:/home/fabio/Projetos/breakout-game/src/resource_manager.cpp
+1536625176 source:/home/fabio/Projetos/breakout-game/src/resource_manager.cpp
 	"resource_manager.hpp"
 	<iostream>
 	<sstream>
