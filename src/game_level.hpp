@@ -3,6 +3,7 @@
 
 #include <GL/glew.h>
 #include <glm/glm.hpp>
+#include <vector>
 
 #include "game_object.hpp"
 #include "sprite_renderer.hpp"

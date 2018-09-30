@@ -3,6 +3,9 @@
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <vector>
+
+#include "game_level.hpp"
 
 enum GameState {
   GAME_ACTIVE,
@@ -23,6 +26,9 @@ class Game {
     void ProcessInput(GLfloat dt);
     void Update(GLfloat dt);
     void Render();
+
+    std::vector<GameLevel> Levels;
+    GLuint Level;
 };
 
 #endif

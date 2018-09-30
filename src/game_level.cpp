@@ -1,5 +1,9 @@
 #include "game_level.hpp"
 
+#include <fstream>
+#include <sstream>
+#include <iostream>
+
 void GameLevel::Load(const GLchar *file, GLuint levelWidth, GLuint levelHeight)
 {
   this->Bricks.clear();
@@ -14,7 +18,7 @@ void GameLevel::Load(const GLchar *file, GLuint levelWidth, GLuint levelHeight)
     {
        std::istringstream sstream(line);
        std::vector<GLuint> row;
-       while (sstream >> tileCode);
+       while (sstream >> tileCode)
          row.push_back(tileCode);
        tileData.push_back(row);
     }
