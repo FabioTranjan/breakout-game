@@ -1,10 +1,12 @@
 # depslib dependency file v1.0
-1538338163 source:/home/fabio/Projetos/breakout-game/src/game.cpp
+1538347776 source:/home/fabio/Projetos/breakout-game/src/game.cpp
 	"game.hpp"
 	"resource_manager.hpp"
 	"sprite_renderer.hpp"
+	"ball_object.hpp"
+	<iostream>
 
-1538344368 /home/fabio/Projetos/breakout-game/src/game.hpp
+1538347444 /home/fabio/Projetos/breakout-game/src/game.hpp
 	<GL/glew.h>
 	<GLFW/glfw3.h>
 	<vector>
@@ -79,4 +81,14 @@
 	"game_object.hpp"
 	"sprite_renderer.hpp"
 	"resource_manager.hpp"
+
+1538347433 source:/home/fabio/Projetos/breakout-game/src/ball_object.cpp
+	"ball_object.hpp"
+
+1538347304 /home/fabio/Projetos/breakout-game/src/ball_object.hpp
+	<GL/glew.h>
+	<glm/glm.hpp>
+	"texture.hpp"
+	"game_object.hpp"
+	"sprite_renderer.hpp"
 

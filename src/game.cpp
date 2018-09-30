@@ -1,11 +1,13 @@
 #include "game.hpp"
 #include "resource_manager.hpp"
 #include "sprite_renderer.hpp"
+#include "ball_object.hpp"
 
 #include <iostream>
 
 SpriteRenderer *Renderer;
 GameObject *Player;
+BallObject *Ball;
 
 Game::Game(GLuint width, GLuint height) :
     State(GAME_ACTIVE), Keys(), Width(width), Height(height)
@@ -15,8 +17,7 @@ Game::Game(GLuint width, GLuint height) :
 
 Game::~Game()
 {
-  delete Renderer;
-  delete Player;
+
 }
 
 void Game::Init()
@@ -34,6 +35,7 @@ void Game::Init()
   ResourceManager::LoadTexture("block.jpg", GL_FALSE, "block");
   ResourceManager::LoadTexture("block_solid.jpg", GL_FALSE, "block_solid");
   ResourceManager::LoadTexture("paddle.jpg", GL_TRUE, "paddle");
+  ResourceManager::LoadTexture("awesomeface.jpg", GL_TRUE, "face");
 
   Renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
 
@@ -55,11 +57,14 @@ void Game::Init()
   );
 
   Player = new GameObject(playerPos, PLAYER_SIZE, ResourceManager::GetTexture("paddle"));
+
+  glm::vec2 ballPos = playerPos + glm::vec2(PLAYER_SIZE.x / 2 - BALL_RADIUS, -BALL_RADIUS * 2);
+  Ball = new BallObject(ballPos, BALL_RADIUS, INITIAL_BALL_VELOCITY, ResourceManager::GetTexture("face"));
 }
 
 void Game::Update(GLfloat dt)
 {
-
+  Ball->Move(dt, this->Width);
 }
 
 void Game::ProcessInput(GLfloat dt)
@@ -77,6 +82,8 @@ void Game::ProcessInput(GLfloat dt)
       if(Player->Position.x <= this->Width - Player->Size.x)
         Player->Position.x += velocity;
     }
+    if(this->Keys[GLFW_KEY_SPACE])
+        Ball->Stuck = false;
   }
 }
 
@@ -88,5 +95,6 @@ void Game::Render()
       glm::vec2(0, 0), glm::vec2(this->Width, this->Height), 0.0f);
     this->Levels[this->Level].Draw(*Renderer);
     Player->Draw(*Renderer);
+    Ball->Draw(*Renderer);
   }
 }
