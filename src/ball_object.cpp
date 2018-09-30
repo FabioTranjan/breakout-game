@@ -1,7 +1,5 @@
 #include "ball_object.hpp"
 
-BallObject *Ball;
-
 BallObject::BallObject()
   : GameObject(), Radius(12.5f), Stuck(true) { }
 
