@@ -2,7 +2,10 @@
 #include "resource_manager.hpp"
 #include "sprite_renderer.hpp"
 
+#include <iostream>
+
 SpriteRenderer *Renderer;
+GameObject *Player;
 
 Game::Game(GLuint width, GLuint height) :
     State(GAME_ACTIVE), Keys(), Width(width), Height(height)
@@ -12,7 +15,8 @@ Game::Game(GLuint width, GLuint height) :
 
 Game::~Game()
 {
-
+  delete Renderer;
+  delete Player;
 }
 
 void Game::Init()
@@ -29,6 +33,9 @@ void Game::Init()
   ResourceManager::LoadTexture("background.jpg", GL_FALSE, "background");
   ResourceManager::LoadTexture("block.jpg", GL_FALSE, "block");
   ResourceManager::LoadTexture("block_solid.jpg", GL_FALSE, "block_solid");
+  ResourceManager::LoadTexture("paddle.jpg", GL_TRUE, "paddle");
+
+  Renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
 
   GameLevel one; one.Load("one.lvl", this->Width, this->Height * 0.5);
   GameLevel two; two.Load("two.lvl", this->Width, this->Height * 0.5);
@@ -41,6 +48,13 @@ void Game::Init()
   this->Levels.push_back(four);
 
   this->Level = 0;
+
+  glm::vec2 playerPos = glm::vec2(
+    this->Width / 2 - PLAYER_SIZE.x / 2,
+    this->Height - PLAYER_SIZE.y
+  );
+
+  Player = new GameObject(playerPos, PLAYER_SIZE, ResourceManager::GetTexture("paddle"));
 }
 
 void Game::Update(GLfloat dt)
@@ -60,5 +74,6 @@ void Game::Render()
     Renderer->DrawSprite(ResourceManager::GetTexture("background"),
       glm::vec2(0, 0), glm::vec2(this->Width, this->Height), 0.0f);
     this->Levels[this->Level].Draw(*Renderer);
+    Player->Draw(*Renderer);
   }
 }

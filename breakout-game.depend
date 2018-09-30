@@ -4,7 +4,7 @@
 	"resource_manager.hpp"
 	"sprite_renderer.hpp"
 
-1538326190 /home/fabio/Projetos/breakout-game/src/game.hpp
+1538344368 /home/fabio/Projetos/breakout-game/src/game.hpp
 	<GL/glew.h>
 	<GLFW/glfw3.h>
 	<vector>
@@ -66,7 +66,7 @@
 	"texture.hpp"
 	"sprite_renderer.hpp"
 
-1538338081 source:/home/fabio/Projetos/breakout-game/src/game_level.cpp
+1538341582 source:/home/fabio/Projetos/breakout-game/src/game_level.cpp
 	"game_level.hpp"
 	<fstream>
 	<sstream>
