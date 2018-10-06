@@ -19,6 +19,15 @@ enum GameState {
   GAME_WIN
 };
 
+enum Direction {
+	UP,
+	RIGHT,
+	DOWN,
+	LEFT
+};
+
+typedef std::tuple<GLboolean, Direction, glm::vec2> Collision;
+
 class Game {
   public:
     GameState State;
@@ -36,10 +45,6 @@ class Game {
 
     std::vector<GameLevel> Levels;
     GLuint Level;
-
-  private:
-    GLboolean CheckCollision(GameObject &one, GameObject &two);
-    GLboolean CheckCollision(BallObject &one, GameObject &two);
 };
 
 #endif

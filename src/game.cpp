@@ -8,6 +8,10 @@ SpriteRenderer *Renderer;
 GameObject *Player;
 BallObject *Ball;
 
+GLboolean CheckCollision(GameObject &one, GameObject &two);
+Collision CheckCollision(BallObject &one, GameObject &two);
+Direction VectorDirection(glm::vec2 target);
+
 Game::Game(GLuint width, GLuint height) :
     State(GAME_ACTIVE), Keys(), Width(width), Height(height)
 {
@@ -105,16 +109,36 @@ void Game::DoCollisions()
   {
     if(!box.Destroyed)
     {
-      if(CheckCollision(*Ball, box))
+      Collision collision = CheckCollision(*Ball, box);
+      if(std::get<0>(collision))
       {
         if(!box.IsSolid)
           box.Destroyed = GL_TRUE;
+        Direction dir = std::get<1>(collision);
+        glm::vec2 diff_vector = std::get<2>(collision);
+        if(dir == LEFT || dir == RIGHT)
+        {
+          Ball->Velocity.x = -Ball->Velocity.x;
+          GLfloat penetration = Ball->Radius - std::abs(diff_vector.x);
+          if(dir == LEFT)
+            Ball->Position.x += penetration;
+          else
+            Ball->Position.x -= penetration;
+        } else
+        {
+          Ball->Velocity.y = -Ball->Velocity.y;
+          GLfloat penetration = Ball->Radius - std::abs(diff_vector.y);
+          if(dir == UP)
+            Ball->Position.y -= penetration;
+          else
+            Ball->Position.y += penetration;
+        }
       }
     }
   }
 }
 
-GLboolean Game::CheckCollision(GameObject &one, GameObject &two)
+GLboolean CheckCollision(GameObject &one, GameObject &two)
 {
     bool collisionX = one.Position.x + one.Size.x >= two.Position.x &&
         two.Position.x + two.Size.x >= one.Position.x;
@@ -123,7 +147,7 @@ GLboolean Game::CheckCollision(GameObject &one, GameObject &two)
     return collisionX && collisionY;
 }
 
-GLboolean Game::CheckCollision(BallObject &one, GameObject &two)
+Collision CheckCollision(BallObject &one, GameObject &two)
 {
     glm::vec2 center(one.Position + one.Radius);
     glm::vec2 aabb_half_extents(two.Size.x / 2, two.Size.y / 2);
@@ -135,5 +159,31 @@ GLboolean Game::CheckCollision(BallObject &one, GameObject &two)
     glm::vec2 clamped = glm::clamp(difference, -aabb_half_extents, aabb_half_extents);
     glm::vec2 closest = aabb_center + clamped;
     difference = closest - center;
-    return glm::length(difference) < one.Radius;
+
+    if(glm::length(difference) <= one.Radius)
+      return std::make_tuple(GL_TRUE, VectorDirection(difference), difference);
+    else
+      return std::make_tuple(GL_FALSE, UP, glm::vec2(0, 0));
+}
+
+Direction VectorDirection(glm::vec2 target)
+{
+    glm::vec2 compass[] = {
+        glm::vec2(0.0f, 1.0f),	// up
+        glm::vec2(1.0f, 0.0f),	// right
+        glm::vec2(0.0f, -1.0f),	// down
+        glm::vec2(-1.0f, 0.0f)	// left
+    };
+    GLfloat max = 0.0f;
+    GLuint best_match = -1;
+    for (GLuint i = 0; i < 4; i++)
+    {
+        GLfloat dot_product = glm::dot(glm::normalize(target), compass[i]);
+        if (dot_product > max)
+        {
+            max = dot_product;
+            best_match = i;
+        }
+    }
+    return (Direction)best_match;
 }
