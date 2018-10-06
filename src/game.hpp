@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "game_level.hpp"
+#include "ball_object.hpp"
 
 const glm::vec2 PLAYER_SIZE(100, 20);
 const GLfloat PLAYER_VELOCITY(500.0f);
@@ -31,9 +32,14 @@ class Game {
     void ProcessInput(GLfloat dt);
     void Update(GLfloat dt);
     void Render();
+    void DoCollisions();
 
     std::vector<GameLevel> Levels;
     GLuint Level;
+
+  private:
+    GLboolean CheckCollision(GameObject &one, GameObject &two);
+    GLboolean CheckCollision(BallObject &one, GameObject &two);
 };
 
 #endif

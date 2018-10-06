@@ -6,11 +6,12 @@
 	"ball_object.hpp"
 	<iostream>
 
-1538347444 /home/fabio/Projetos/breakout-game/src/game.hpp
+1538838748 /home/fabio/Projetos/breakout-game/src/game.hpp
 	<GL/glew.h>
 	<GLFW/glfw3.h>
 	<vector>
 	"game_level.hpp"
+	"ball_object.hpp"
 
 1536539403 /home/fabio/Projetos/breakout-game/src/resource_manager.hpp
 	<map>
@@ -82,7 +83,7 @@
 	"sprite_renderer.hpp"
 	"resource_manager.hpp"
 
-1538347433 source:/home/fabio/Projetos/breakout-game/src/ball_object.cpp
+1538347952 source:/home/fabio/Projetos/breakout-game/src/ball_object.cpp
 	"ball_object.hpp"
 
 1538347304 /home/fabio/Projetos/breakout-game/src/ball_object.hpp

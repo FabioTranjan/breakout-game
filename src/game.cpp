@@ -1,7 +1,6 @@
 #include "game.hpp"
 #include "resource_manager.hpp"
 #include "sprite_renderer.hpp"
-#include "ball_object.hpp"
 
 #include <iostream>
 
@@ -65,6 +64,7 @@ void Game::Init()
 void Game::Update(GLfloat dt)
 {
   Ball->Move(dt, this->Width);
+  this->DoCollisions();
 }
 
 void Game::ProcessInput(GLfloat dt)
@@ -97,4 +97,43 @@ void Game::Render()
     Player->Draw(*Renderer);
     Ball->Draw(*Renderer);
   }
+}
+
+void Game::DoCollisions()
+{
+  for(GameObject &box : this->Levels[this->Level].Bricks)
+  {
+    if(!box.Destroyed)
+    {
+      if(CheckCollision(*Ball, box))
+      {
+        if(!box.IsSolid)
+          box.Destroyed = GL_TRUE;
+      }
+    }
+  }
+}
+
+GLboolean Game::CheckCollision(GameObject &one, GameObject &two)
+{
+    bool collisionX = one.Position.x + one.Size.x >= two.Position.x &&
+        two.Position.x + two.Size.x >= one.Position.x;
+    bool collisionY = one.Position.y + one.Size.y >= two.Position.y &&
+        two.Position.y + two.Size.y >= one.Position.y;
+    return collisionX && collisionY;
+}
+
+GLboolean Game::CheckCollision(BallObject &one, GameObject &two)
+{
+    glm::vec2 center(one.Position + one.Radius);
+    glm::vec2 aabb_half_extents(two.Size.x / 2, two.Size.y / 2);
+    glm::vec2 aabb_center(
+        two.Position.x + aabb_half_extents.x,
+        two.Position.y + aabb_half_extents.y
+    );
+    glm::vec2 difference = center - aabb_center;
+    glm::vec2 clamped = glm::clamp(difference, -aabb_half_extents, aabb_half_extents);
+    glm::vec2 closest = aabb_center + clamped;
+    difference = closest - center;
+    return glm::length(difference) < one.Radius;
 }
