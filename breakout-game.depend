@@ -1,9 +1,8 @@
 # depslib dependency file v1.0
-1538347776 source:/home/fabio/Projetos/breakout-game/src/game.cpp
+1538874979 source:/home/fabio/Projetos/breakout-game/src/game.cpp
 	"game.hpp"
 	"resource_manager.hpp"
 	"sprite_renderer.hpp"
-	"ball_object.hpp"
 	<iostream>
 
 1538844787 /home/fabio/Projetos/breakout-game/src/game.hpp
