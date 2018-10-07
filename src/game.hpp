@@ -42,6 +42,8 @@ class Game {
     void Update(GLfloat dt);
     void Render();
     void DoCollisions();
+    void ResetLevel();
+    void ResetPlayer();
 
     std::vector<GameLevel> Levels;
     GLuint Level;

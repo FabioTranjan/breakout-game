@@ -69,6 +69,11 @@ void Game::Update(GLfloat dt)
 {
   Ball->Move(dt, this->Width);
   this->DoCollisions();
+  if(Ball->Position.y >= this->Height)
+  {
+    this->ResetLevel();
+    this->ResetPlayer();
+  }
 }
 
 void Game::ProcessInput(GLfloat dt)
@@ -148,6 +153,25 @@ void Game::DoCollisions()
       }
     }
   }
+}
+
+void Game::ResetLevel()
+{
+    if (this->Level == 0)
+      this->Levels[0].Load("one.lvl", this->Width, this->Height * 0.5f);
+    else if (this->Level == 1)
+      this->Levels[1].Load("two.lvl", this->Width, this->Height * 0.5f);
+    else if (this->Level == 2)
+      this->Levels[2].Load("three.lvl", this->Width, this->Height * 0.5f);
+    else if (this->Level == 3)
+      this->Levels[3].Load("four.lvl", this->Width, this->Height * 0.5f);
+}
+
+void Game::ResetPlayer()
+{
+    Player->Size = PLAYER_SIZE;
+    Player->Position = glm::vec2(this->Width / 2 - PLAYER_SIZE.x / 2, this->Height - PLAYER_SIZE.y);
+    Ball->Reset(Player->Position + glm::vec2(PLAYER_SIZE.x / 2 - BALL_RADIUS, -(BALL_RADIUS * 2)), INITIAL_BALL_VELOCITY);
 }
 
 GLboolean CheckCollision(GameObject &one, GameObject &two)
