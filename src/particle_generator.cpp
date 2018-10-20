@@ -38,10 +38,10 @@ void ParticleGenerator::Draw()
       this->texture.Bind();
       glBindVertexArray(this->VAO);
       glDrawArrays(GL_TRIANGLES, 0, 6);
-      glmBindVertexArray(0);
+      glBindVertexArray(0);
     }
   }
-  
+
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
@@ -70,8 +70,33 @@ void ParticleGenerator::init()
     this->particles.push_back(Particle());
 }
 
+GLuint lastUsedParticle = 0;
+GLuint ParticleGenerator::firstUnusedParticle()
+{
+  for (GLuint i = lastUsedParticle; i < this->amount; ++i) {
+    if (this->particles[i].Life <= 0.0f) {
+      lastUsedParticle = i;
+      return i;
+    }
+  }
 
+  for (GLuint i = 0; i < lastUsedParticle; ++i) {
+    if (this->particles[i].Life <= 0.0f) {
+      lastUsedParticle = i;
+      return i;
+    }
+  }
 
+  lastUsedParticle = 0;
+  return 0;
+}
 
-
+void ParticleGenerator::respawnParticle(Particle &particle, GameObject &object, glm::vec2 offset)
+{
+  GLfloat random = ((rand() % 100) - 50) / 10.0f;
+  GLfloat rColor = 0.5 + ((rand() % 100) / 100.0f);
+  particle.Position = object.Position + random + offset;
+  particle.Color = glm::vec4(rColor, rColor, rColor, 1.0f);
+  particle.Life = 1.0f;
+  particle.Velocity = object.Velocity * 0.1f;
 }

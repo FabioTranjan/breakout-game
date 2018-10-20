@@ -5,9 +5,9 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 
-#include "shader.h"
-#include "texture.h"
-#include "game_object.h"
+#include "shader.hpp"
+#include "texture.hpp"
+#include "game_object.hpp"
 
 struct Particle {
   glm::vec2 Position, Velocity;

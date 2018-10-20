@@ -1,10 +1,12 @@
 #include "game.hpp"
 #include "resource_manager.hpp"
 #include "sprite_renderer.hpp"
+#include "particle_generator.hpp"
 
 #include <iostream>
 
 SpriteRenderer *Renderer;
+ParticleGenerator *Particles;
 GameObject *Player;
 BallObject *Ball;
 
@@ -26,6 +28,7 @@ Game::~Game()
 void Game::Init()
 {
   ResourceManager::LoadShader("sprite.vert", "sprite.frag", nullptr, "sprite");
+  ResourceManager::LoadShader("particle.vert", "particle.frag", nullptr, "particle");
 
   glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(this->Width),
     static_cast<GLfloat>(this->Height), 0.0f, -1.0f, 1.0f);
@@ -39,8 +42,14 @@ void Game::Init()
   ResourceManager::LoadTexture("block_solid.jpg", GL_FALSE, "block_solid");
   ResourceManager::LoadTexture("paddle.jpg", GL_TRUE, "paddle");
   ResourceManager::LoadTexture("awesomeface.jpg", GL_TRUE, "face");
+  ResourceManager::LoadTexture("particle.jpg", GL_TRUE, "particle");
 
   Renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
+  //Particles = new ParticleGenerator(
+  //  ResourceManager::GetShader("particle"),
+  //  ResourceManager::GetTexture("particle"),
+  //  500
+  //);
 
   GameLevel one; one.Load("one.lvl", this->Width, this->Height * 0.5);
   GameLevel two; two.Load("two.lvl", this->Width, this->Height * 0.5);
@@ -60,7 +69,6 @@ void Game::Init()
   );
 
   Player = new GameObject(playerPos, PLAYER_SIZE, ResourceManager::GetTexture("paddle"));
-
   glm::vec2 ballPos = playerPos + glm::vec2(PLAYER_SIZE.x / 2 - BALL_RADIUS, -BALL_RADIUS * 2);
   Ball = new BallObject(ballPos, BALL_RADIUS, INITIAL_BALL_VELOCITY, ResourceManager::GetTexture("face"));
 }
@@ -69,6 +77,7 @@ void Game::Update(GLfloat dt)
 {
   Ball->Move(dt, this->Width);
   this->DoCollisions();
+  // Particles->Update(dt, *Ball, 2, glm::vec2(Ball->Radius / 2));
   if(Ball->Position.y >= this->Height)
   {
     this->ResetLevel();
@@ -104,6 +113,7 @@ void Game::Render()
       glm::vec2(0, 0), glm::vec2(this->Width, this->Height), 0.0f);
     this->Levels[this->Level].Draw(*Renderer);
     Player->Draw(*Renderer);
+    // Particles->Draw();
     Ball->Draw(*Renderer);
   }
 }

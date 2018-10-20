@@ -45,6 +45,8 @@
 			<Add library="SOIL" />
 			<Add library="dl" />
 		</Linker>
+		<Unit filename="src/ball_object.cpp" />
+		<Unit filename="src/ball_object.hpp" />
 		<Unit filename="src/game.cpp" />
 		<Unit filename="src/game.hpp" />
 		<Unit filename="src/game_level.cpp" />

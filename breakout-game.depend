@@ -1,8 +1,9 @@
 # depslib dependency file v1.0
-1538874979 source:/home/fabio/Projetos/breakout-game/src/game.cpp
+1540036538 source:/home/fabio/Projetos/breakout-game/src/game.cpp
 	"game.hpp"
 	"resource_manager.hpp"
 	"sprite_renderer.hpp"
+	"particle_generator.hpp"
 	<iostream>
 
 1538875484 /home/fabio/Projetos/breakout-game/src/game.hpp
@@ -91,4 +92,15 @@
 	"texture.hpp"
 	"game_object.hpp"
 	"sprite_renderer.hpp"
+
+1540036451 /home/fabio/Projetos/breakout-game/src/particle_generator.hpp
+	<vector>
+	<GL/glew.h>
+	<glm/glm.hpp>
+	"shader.hpp"
+	"texture.hpp"
+	"game_object.hpp"
+
+1540036472 source:/home/fabio/Projetos/breakout-game/src/particle_generator.cpp
+	"particle_generator.hpp"
 
