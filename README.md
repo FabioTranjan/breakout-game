@@ -1,7 +1,7 @@
-# breakout-game
+# Breakout Game
 
-# description
-A simple Breakout game using OpenGL.
+# Description
+A simple Breakout game using OpenGL 3.
 
-# dependencies
+# Dependencies
 
